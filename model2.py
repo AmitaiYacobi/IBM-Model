@@ -53,8 +53,6 @@ def train(sentence_pairs, iternum=25):
     # prev_translation_propabilities = load_translation_probs("./results/propabilities.pkl")
     prev_translation_propabilities = init_translation_propabilities(sentence_pairs)
     prev_alignment_propabilities = init_alignment_propabilities(sentence_pairs)
-    rates = []
-    epochs = []
     for epoch in range(iternum):
         print(f"Epoch number {epoch}")
         new_translation_propabilities, new_alignment_propabilities = em_iteration(sentence_pairs, 
@@ -62,16 +60,9 @@ def train(sentence_pairs, iternum=25):
                                                                                   prev_alignment_propabilities)
         align_sentences(sentence_pairs, new_translation_propabilities, "model2")
         aer = evaluate("model2")
-        epochs.append(epoch)
-        rates.append(float(aer))
         print(f"AER = {aer}")
         prev_translation_propabilities = new_translation_propabilities
         prev_alignment_propabilities = new_alignment_propabilities
-
-    with open("./uniform.txt", "w") as f:
-        f.write(str(epochs))
-        f.write("\n")
-        f.write(str(rates))
 
     final_translation_propabilities = prev_translation_propabilities
     return final_translation_propabilities

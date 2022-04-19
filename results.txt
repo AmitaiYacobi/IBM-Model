@@ -1,3 +1,3 @@
-Precision = 0.440242
-Recall = 0.482249
-AER = 0.545546
+Precision = 0.537065
+Recall = 0.689349
+AER = 0.411411

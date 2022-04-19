@@ -1,2 +1,4 @@
 .DS*
 results
+__pycache__
+results.txt

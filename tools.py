@@ -56,20 +56,17 @@ def evaluate(model):
 
 def create_aer_per_epochs_graph():
     rates = {}
-    i_1 = open("./1.0.txt", "r").readlines()
-    i_samples = open("./samples.txt", "r").readlines()
+    i_model1 = open("./based_on_model1.txt", "r").readlines()
     i_uniform = open("./uniform.txt", "r").readlines()
 
-    epochs = [int(i) for i in i_1[0][1:-2].strip().split(",")]
-    rates["1.0"] = [float(i) for i in i_1[1][1:-2].strip().split(",")]
-    rates["samples"] = [float(i) for i in i_samples[1][1:-2].strip().split(",")]
+    epochs = [int(i) for i in i_model1[0][1:-2].strip().split(",")]
+    rates["model1"] = [float(i) for i in i_model1[1][1:-2].strip().split(",")]
     rates["uniform"] = [float(i) for i in i_uniform[1][1:-2].strip().split(",")]
-    plt.plot(epochs, rates["1.0"], color='r', label='1.0')
-    plt.plot(epochs, rates["samples"], color='g', label="Samples from uniform(1,0)")
+    plt.plot(epochs, rates["model1"], color='r', label='Based on model 1')
     plt.plot(epochs, rates["uniform"], color='b', label="1/(Number of french words)")
     plt.xlabel("Epochs")
     plt.ylabel("AER")
     plt.legend()
-    plt.savefig("aer_per_init_model1.png")
+    plt.savefig("aer_per_init_model2.png")
 
 
