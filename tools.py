@@ -16,8 +16,15 @@ def dd(x):
 def get_sentence_pairs(e_file, f_file, num_of_sentences=100000):
     return [[sentence.strip().split() for sentence in pair] for pair in list(zip(f_file, e_file))[:num_of_sentences]]
 
+def add_null_words(sentence_pairs):
+    for f_sentence, e_sentence in sentence_pairs:
+        for i in range(5): 
+            f_sentence.append("NULL")
+    return sentence_pairs
+
 def init_translation_propabilities(sentence_pairs):
     num_of_f_words = len(set(f_word for (f_sentence, e_sentence) in sentence_pairs for f_word in f_sentence))
+    # num_of_e_words = len(set(e_word for (f_sentence, e_sentence) in sentence_pairs for e_word in e_sentence))
     translation_propabilities = defaultdict(functools.partial(dd, num_of_f_words))
     return translation_propabilities
 
@@ -68,5 +75,32 @@ def create_aer_per_epochs_graph():
     plt.ylabel("AER")
     plt.legend()
     plt.savefig("aer_per_init_model2.png")
+
+def union_alignments():
+    a_standart = open("./test/alignments_model1.txt")
+    a_opposit = open("./test/alignments_model1_op_dir.txt")
+    new_alignment = open("./test/new_alignment.txt", "w")
+
+    line_set = set()
+    a_standart = a_standart.readlines()
+    a_opposit = a_opposit.readlines()
+
+    for i in range(len(a_standart)):
+        line_set = set()
+        for a in a_standart[i].split():
+            line_set.add(a)
+        for b in a_opposit[i].split():
+            b = b.split("-")
+            first_e = b[1]
+            second_e = b[0]
+            alignment = first_e+"-"+second_e
+            line_set.add(alignment)
+        for element in line_set:
+            new_alignment.write(element+" ")
+        new_alignment.write("\n")         
+
+
+
+
 
 

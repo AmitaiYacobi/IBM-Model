@@ -22,12 +22,13 @@ def em_iteration(sentence_pairs, translation_propabilities):
     for (e,f) in count.keys():
         print(f"{c}", end="\r")
         c += 1        
-        translation_propabilities[(e,f)] = (count[(e,f)] + 1)  / (total[f] + 10000) 
+        translation_propabilities[(e,f)] = (count[(e,f)]) / (total[f]) 
     print("Update finished!")
     return translation_propabilities
 
 
 def train(sentence_pairs, iternum=25):
+    # sentence_pairs = add_null_words(sentence_pairs)
     prev_translation_propabilities = init_translation_propabilities(sentence_pairs)
     for epoch in range(iternum):
         print(f"Epoch number {epoch}")
