@@ -1,6 +1,6 @@
 # Assignment 1 IBM Models
 
-For running the model you should run the following command:<br>
+For running the model you should run the following command **inside** IBM-Model directory:<br>
 `python3 main.py`<br>
 with the following flags and their values:<br>
 `-e` : /path/to/english_file<br>
